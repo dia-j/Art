@@ -1,5 +1,5 @@
 import express from 'express';
-import { addArt, listArt } from '../controllers/artController.js';
+import { addArt, listArt, removeArt } from '../controllers/artController.js';
 import multer from 'multer';
 
 const artRouter = express.Router();
@@ -13,6 +13,7 @@ const upload = multer({ storage });
 
 // POST /api/art/add
 artRouter.post('/add', upload.single('image'), addArt);
+artRouter.post('/remove', removeArt)
 
 artRouter.get('/list', listArt )
 

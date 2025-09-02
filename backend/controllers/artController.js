@@ -1,3 +1,5 @@
+import path from 'path';
+import { promises as fs } from 'fs';
 import artModel from '../models/artModel.js';
 
 export const addArt = async (req, res) => {
@@ -65,3 +67,36 @@ export const listArt = async (req, res) => {
     return res.status(500).json({ success: false, message: 'Art item list failed', error: error.message });
   }
 };
+
+// safe remove handler
+export const removeArt = async (req, res) => {
+  try {
+    // accept id in JSON body or url param
+    const id = req.body?.id || req.params?.id;
+    if (!id) {
+      return res.status(400).json({ success: false, message: 'id is required' });
+    }
+
+    const art = await artModel.findById(id);
+    if (!art) {
+      return res.status(404).json({ success: false, message: 'Art item not found' });
+    }
+
+    // remove file if exists (ignore errors)
+    const filePath = path.join(process.cwd(), 'uploads', art.image || '');
+    
+    try {
+      await fs.unlink(filePath);
+      console.log('Removed file:', filePath);
+    } catch (e) {
+      console.warn('Could not remove file (may not exist):', filePath, e.message);
+    }
+
+    await artModel.findByIdAndDelete(id);
+    return res.json({ success: true, message: 'Art item removed' });
+  } catch (error) {
+    console.error('removeArt error:', error);
+    return res.status(500).json({ success: false, message: 'Art item remove failed', error: error.message });
+  }
+};
+
