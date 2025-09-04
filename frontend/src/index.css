@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Outfit;
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  background: white; /* page bg so .app gap is visible */
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+.app{
+  width: 80%;
+  margin: 0 auto;               /* explicit centering */ /* debug: visible outline */
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+}
+}
+
+
+.navbar .logo{
+  width: 150px; /* adjust as needed */
+}
+
+.navbar-collection{
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  color: black;
+  font-size: 18px;
+}
+
+.navbar-right{
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.navbar button{
+  background: transparent;
+  font-size: 16px;
+  color: black;
+  border: 1px solid black;
+  background-color: white;
+  padding: 10px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.navbar button:hover{
+  background: black;
+  color: #fff;
+}
+
