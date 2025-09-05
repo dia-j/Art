@@ -25,8 +25,18 @@
     width: 50px;
 }
 
-.my-orders-order p span{
-    color: rgba(83, 134, 6, 0.671);
+.order-status-circle {
+    font-size: 1.2em;
+    margin-right: 8px;
+}
+.order-status-circle.processing {
+    color: #c00;
+}
+.order-status-circle.shipped {
+    color: #e6b800;
+}
+.order-status-circle.delivered {
+    color: #2ecc40;
 }
 .my-orders-order p b{
     font-weight: 500;

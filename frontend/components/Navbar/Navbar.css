@@ -125,6 +125,29 @@
         display: none;
     }
     .navbar-right{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         gap: 12px;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    .navbar-search-icon,
+    .navbar-profile {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .navbar-search-icon img,
+    .navbar-profile img {
+        width: 28px;
+        height: 28px;
+    }
+    .navbar-right button {
+        padding: 8px 12px;
+        font-size: 1rem;
+    }
+    .nav-profile-dropdown {
+        right: 0;
+        min-width: 120px;
     }
 }

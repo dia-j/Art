@@ -38,7 +38,16 @@ const MyOrders = () => {
                 }})}</p>
                 <p>${order.amount}.00</p>
                 <p>Items: {order.items.length}</p>
-                <p><span>&#x25cf;</span><b>{order.status}</b></p>
+                <p>
+                  <span
+                    className={
+                      order.status === 'Order Processing' ? 'order-status-circle processing' :
+                      order.status === 'Shipped' ? 'order-status-circle shipped' :
+                      order.status === 'Delivered' ? 'order-status-circle delivered' : 'order-status-circle'
+                    }
+                  >&#x25cf;</span>
+                  <b>{order.status}</b>
+                </p>
                 <button onClick={fetchOrders}>Track Order</button>
             </div>
         )})}
