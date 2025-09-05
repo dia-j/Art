@@ -8,16 +8,16 @@ const listUsers = async (req, res) => {
     }
 };
 
-// Ban a user (admin)
+// Ban or unban a user (admin)
 const banUser = async (req, res) => {
     try {
-        const { userId } = req.body;
-        if (!userId) return res.json({ success: false, message: 'User ID required' });
-        const user = await userModel.findByIdAndUpdate(userId, { banned: true });
+        const { userId, banned } = req.body;
+        if (!userId || typeof banned === 'undefined') return res.json({ success: false, message: 'User ID and banned status required' });
+        const user = await userModel.findByIdAndUpdate(userId, { banned });
         if (!user) return res.json({ success: false, message: 'User not found' });
-        res.json({ success: true, message: 'User banned' });
+        res.json({ success: true, message: banned ? 'User banned' : 'User unbanned' });
     } catch (error) {
-        res.json({ success: false, message: 'Failed to ban user', error: error.message });
+        res.json({ success: false, message: 'Failed to update user status', error: error.message });
     }
 };
 import userModel from "../models/userModel.js";

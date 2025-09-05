@@ -58,6 +58,7 @@ export const listArt = async (req, res) => {
       image: a.image,
       imageUrl: `${host}/images/${a.image}`,
       category: a.category,
+      description: a.description,
       __v: a.__v
     }));
 
