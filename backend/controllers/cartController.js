@@ -53,7 +53,6 @@ const removeFromCart = async (req, res) => {
 
 // fetch user cart data
 const getCart = async (req,res) => {
-
     try { 
         let userData = await userModel.findById(req.userId);
         let cartData = await userData.cartData;
@@ -62,7 +61,16 @@ const getCart = async (req,res) => {
         console.log('getCart error:', error);
         res.status(500).json({ success: false, message: "Error fetching cart data", error: error.message });
     }
-
 }
 
-export {addToCart,removeFromCart,getCart}
+// clear user cart data
+const clearCart = async (req, res) => {
+    try {
+        await userModel.findByIdAndUpdate(req.userId, { cartData: {} });
+        res.json({ success: true });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Error clearing cart", error: error.message });
+    }
+};
+
+export {addToCart,removeFromCart,getCart,clearCart}

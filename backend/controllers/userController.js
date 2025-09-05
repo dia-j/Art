@@ -1,3 +1,25 @@
+// List all users (admin)
+const listUsers = async (req, res) => {
+    try {
+        const users = await userModel.find({}, '-password'); // exclude password
+        res.json({ success: true, data: users });
+    } catch (error) {
+        res.json({ success: false, message: 'Failed to fetch users', error: error.message });
+    }
+};
+
+// Ban a user (admin)
+const banUser = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        if (!userId) return res.json({ success: false, message: 'User ID required' });
+        const user = await userModel.findByIdAndUpdate(userId, { banned: true });
+        if (!user) return res.json({ success: false, message: 'User not found' });
+        res.json({ success: true, message: 'User banned' });
+    } catch (error) {
+        res.json({ success: false, message: 'Failed to ban user', error: error.message });
+    }
+};
 import userModel from "../models/userModel.js";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
@@ -11,6 +33,9 @@ const loginUser = async (req,res)=> {
         const user = await userModel.findOne({email});
         if (!user) {
             return res.json({ success: false, message: "User Doesn't Exist" });
+        }
+        if (user.banned) {
+            return res.json({ success: false, message: "User is banned" });
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
@@ -36,6 +61,9 @@ const registerUser = async (req,res)=> {
         // checking if user exisits 
         const exists = await userModel.findOne({ email });
         if (exists){
+            if (exists.banned) {
+                return res.json({ success: false, message: "User is banned" });
+            }
             return res.json({ success: false, message: "User already exists" });
         }
         // validating email format and strong password 
@@ -63,4 +91,4 @@ const registerUser = async (req,res)=> {
 
 }
 
-export {loginUser, registerUser}
+export {loginUser, registerUser, listUsers, banUser}
