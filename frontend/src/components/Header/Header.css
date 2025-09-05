@@ -40,6 +40,14 @@
     border-radius: 50px;
 }
 
+.header-contents button:hover{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    transform: scale(1.038);
+}
+
 @media (max-width: 1050px) {
     
     .header-contents{

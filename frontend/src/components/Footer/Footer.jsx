@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer-content">
 
         <div className="footer-content-left">
-            <img src={assets.logo} alt="" />
+            <img src={assets.wlogo} alt="" />
             <p>
                 Art & Craft is a platform that showcases unique arts and crafts from various cultures, promoting heritage and creativity. Explore our collection to find one-of-a-kind pieces that tell a story and add a touch of culture to your life.
             </p>

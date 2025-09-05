@@ -6,6 +6,10 @@ import Cart from './pages/Cart/Cart'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
+import Payment from './pages/Payment/payment'
+import Verify from './pages/Verify/Verify'
+import MyOrders from './pages/MyOrders/MyOrders'
+import CollectionPage from './pages/CollectionPage/CollectionPage';
 
 
 const App = () => {
@@ -16,13 +20,16 @@ const App = () => {
     <>
     {showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}
       <div className='app'>
-      <Navbar setShowLogin={setShowLogin}/>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/place-order" element={<PlaceOrder />} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<Home setShowLogin={setShowLogin} />} />
+          <Route path="/cart" element={<><Navbar setShowLogin={setShowLogin} /><Cart /></>} />
+          <Route path="/place-order" element={<><Navbar setShowLogin={setShowLogin} /><PlaceOrder /></>} />
+          <Route path="/payment" element={<><Navbar setShowLogin={setShowLogin} /><Payment /></>} />
+          <Route path="/verify" element={<><Navbar setShowLogin={setShowLogin} /><Verify /></>} />
+          <Route path="/myorders" element={<><Navbar setShowLogin={setShowLogin} /><MyOrders /></>} />
+          <Route path="/collection" element={<><Navbar setShowLogin={setShowLogin} /><CollectionPage /></>} />
+        </Routes>
+      </div>
     <Footer/>
     </>
 

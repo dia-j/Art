@@ -8,7 +8,7 @@
 }
 body {
   min-height: 100vh;
-  background: white; /* page bg so .app gap is visible */
+  background: rgb(240, 240, 230); /* page bg so .app gap is visible */
 }
 a{
   text-decoration: none;

@@ -5,6 +5,9 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import { connectDB } from './config/db.js';
 import artRouter from './routes/artRoute.js';
+import userRouter from './routes/userRoute.js';
+import cartRouter from './routes/cartRoute.js';
+import orderRouter from './routes/orderRoute.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,8 +23,12 @@ app.use('/images', express.static(path.join(__dirname, 'uploads')));
 
 connectDB(process.env.MONGO_URI)
   .then(() => {
+
     // mount router normally (remove temporary debug middleware)
     app.use('/api/art', artRouter);
+    app.use('/api/user', userRouter);
+    app.use('/api/cart', cartRouter);
+    app.use('/api/order', orderRouter);
 
     app.get('/', (req, res) => res.send('Jarin Tasnim Dia'));
     app.listen(port, () => console.log(`listening on http://localhost:${port}`));
