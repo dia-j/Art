@@ -31,7 +31,7 @@ const StoreContexPorvider = (props) => {
         }
     }
     
-    const getTotalCartAmount = () => {
+ /*   const getTotalCartAmount = () => {
         let totalAmount =0;
         for (const item in cartItems) 
         {
@@ -43,7 +43,53 @@ const StoreContexPorvider = (props) => {
             }         
         }
         return totalAmount;
-    }
+    } */
+
+    const getCartItemsSummary = () => {
+        let summary = [];
+        for (const itemId in cartItems) {
+            if (cartItems[itemId] > 0) {
+                let found = false;
+                for (let i = 0; i < art_list.length; i++) {
+                    if (art_list[i]._id === itemId) {
+                        summary.push({
+                            name: art_list[i].name,
+                            quantity: cartItems[itemId],
+                            price: art_list[i].price,
+                            total: art_list[i].price * cartItems[itemId]
+                        });
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    summary.push({
+                        name: "Unknown Item",
+                        quantity: cartItems[itemId],
+                        price: 0,
+                        total: 0
+                    });
+                }
+            } else if (cartItems[itemId] === 0) {
+                summary.push({
+                    name: "Removed Item",
+                    quantity: 0,
+                    price: 0,
+                    total: 0
+                });
+            } else {
+                // Negative quantity, should not happen
+                summary.push({
+                    name: "Invalid Item",
+                    quantity: cartItems[itemId],
+                    price: 0,
+                    total: 0
+                });
+            }
+        }
+        return summary;
+    };
+
 
     const fetchArtList = async () => {
         const response = await axios.get(url+"/api/art/list");
